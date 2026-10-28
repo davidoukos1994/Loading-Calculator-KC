@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="style.css?v=4.3.1" />
+  <link rel="stylesheet" href="style.css?v=4.4-layout" />
   <title>Πρόγραμμα Δεξαμενών Υποχλωριώδους Νατρίου</title>
 </head>
 <body>
@@ -20,30 +20,6 @@
   </header>
 
   <main>
-    <div class="top-workspace">
-      <section class="panel quick-panel">
-        <div class="quick-heading">
-          <div>
-            <h2>⚡ Γρήγορος υπολογισμός</h2>
-            <p>Προσωρινή προσομοίωση χωρίς αλλαγή στο κύριο πρόγραμμα.</p>
-          </div>
-          <div class="quick-actions">
-            <button id="quickAddBtn" class="quick-add" type="button">+ Δεξαμενή</button>
-            <button id="quickClearBtn" class="quick-clear" type="button">Καθαρισμός</button>
-          </div>
-        </div>
-        <div class="quick-help">Βάλε τα πραγματικά μέτρα, τον στόχο που θέλεις να φτάσει η δεξαμενή και τις σειρές, π.χ. <b>1,3</b> για Z1 και <b>2</b> για Z2.</div>
-        <div id="quickRows" class="quick-rows"></div>
-        <button id="quickCalcBtn" class="quick-calc" type="button">Υπολογισμός χρόνου</button>
-        <div id="quickResults" class="quick-results" aria-live="polite"></div>
-      </section>
-
-      <section class="panel schedule-panel schedule-panel-top">
-        <h2>Πρόγραμμα γεμίσματος</h2>
-        <div id="schedule" class="schedule"></div>
-      </section>
-    </div>
-
     <section class="panel top-panel">
       <label>Παραγωγή kg/hr
         <input id="production" type="text" inputmode="text" placeholder="π.χ. 6824 ή 6824,5" />
@@ -68,6 +44,31 @@
       </div>
     </section>
 
+
+    <div class="top-workspace">
+      <section class="panel quick-panel">
+        <div class="quick-heading">
+          <div>
+            <h2>⚡ Γρήγορος υπολογισμός</h2>
+            <p>Προσωρινή προσομοίωση χωρίς αλλαγή στο κύριο πρόγραμμα.</p>
+          </div>
+          <div class="quick-actions">
+            <button id="quickAddBtn" class="quick-add" type="button">+ Δεξαμενή</button>
+            <button id="quickClearBtn" class="quick-clear" type="button">Καθαρισμός</button>
+          </div>
+        </div>
+        <div class="quick-help">Βάλε τα πραγματικά μέτρα, τον στόχο που θέλεις να φτάσει η δεξαμενή και τις σειρές, π.χ. <b>1,3</b> για Z1 και <b>2</b> για Z2.</div>
+        <div id="quickRows" class="quick-rows"></div>
+        <button id="quickCalcBtn" class="quick-calc" type="button">Υπολογισμός χρόνου</button>
+        <div id="quickResults" class="quick-results" aria-live="polite"></div>
+      </section>
+
+      <section class="panel schedule-panel schedule-panel-top">
+        <h2>Πρόγραμμα γεμίσματος</h2>
+        <div id="schedule" class="schedule"></div>
+      </section>
+    </div>
+
     <section class="summary two">
       <div><span>Σύνολο με προσθήκη βυτίων</span><strong id="totalNow">-</strong></div>
       <div><span>Πότε φτάνουν όλοι οι στόχοι</span><strong id="allFullTime">-</strong></div>
@@ -86,6 +87,6 @@
 
   </main>
 
-  <script src="app.js?v=4.3.1"></script>
+  <script src="app.js?v=4.4-layout"></script>
 </body>
 </html>
