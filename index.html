@@ -7,19 +7,19 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <title>Πρόγραμμα Φορτώσεων</title>
+  <title>Πρόγραμμα πλήρωσης δεξαμενών Hypochlorite / HCl</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="styles.css?v=6.4.3" />
 </head>
 <body>
 <header class="topbar">
-  <div><h1>Πρόγραμμα Φορτώσεων <small class="version-badge">Kapachim_Calendar v3.3</small></h1><p>Κοινόχρηστη εφαρμογή — οι φωτογραφίες δεν αποθηκεύονται.</p></div>
+  <div><h1>Πρόγραμμα πλήρωσης δεξαμενών Hypochlorite / HCl <small class="version-badge">Kapachim_Calendar v3.6</small></h1><p>Κοινόχρηστη εφαρμογή — οι φωτογραφίες δεν αποθηκεύονται.</p></div>
   <div class="status" id="saveStatus">Αποθηκεύτηκε</div>
 </header>
 <nav class="tabs" aria-label="Κύρια πλοήγηση">
   <button class="tab active" data-view="salesOrder">Πρόγραμμα δεξαμενών υποχλωριώδους νατρίου</button>
-  <button class="tab" data-view="weekly">Εβδομαδιαίο</button>
   <button class="tab" data-view="hcl">Υδροχλωρικό οξύ (HCl)</button>
+  <button class="tab" data-view="weekly">Εβδομαδιαίο</button>
   <button class="tab" data-view="workProgram">Πρόγραμμα εργασιών</button>
   <button class="tab" data-view="lists">Λίστες / Autocomplete</button>
   <button class="tab" data-view="backup">Αντίγραφο ασφαλείας</button>
@@ -63,8 +63,8 @@
       </div>
       <div class="hcl-card hcl-quick">
         <h3>D-902</h3><div class="hcl-fields">
-          <label>Τώρα (%)<span class="hcl-meter"><button type="button" data-hcl-adjust="hclLevelD" data-delta="-5">−</button><input id="hclLevelD" type="number" min="0" max="100" step="1" inputmode="decimal" value="0"><button type="button" data-hcl-adjust="hclLevelD" data-delta="5">+</button></span></label>
-          <label>Στόχος (%)<span class="hcl-meter"><button type="button" data-hcl-adjust="hclTargetD" data-delta="-5">−</button><input id="hclTargetD" type="number" min="0" max="100" step="1" inputmode="decimal" value="80"><button type="button" data-hcl-adjust="hclTargetD" data-delta="5">+</button></span></label>
+          <label>Τώρα (%)<span class="hcl-meter"><button type="button" data-hcl-adjust="hclLevelD" data-delta="-5">−</button><input id="hclLevelD" type="number" min="0" max="100" step="0.01" inputmode="decimal" value="0"><button type="button" data-hcl-adjust="hclLevelD" data-delta="5">+</button></span></label>
+          <label>Στόχος (%)<span class="hcl-meter"><button type="button" data-hcl-adjust="hclTargetD" data-delta="-5">−</button><input id="hclTargetD" type="number" min="0" max="100" step="0.01" inputmode="decimal" value="80"><button type="button" data-hcl-adjust="hclTargetD" data-delta="5">+</button></span></label>
           <label>Πυκνότητα (tn/m³)<input id="hclDensity" type="number" min="0.01" step="any" value="1.15"></label>
         </div>
         <div id="hclDQuick" class="hcl-quick-results" aria-live="polite"></div>
@@ -212,5 +212,5 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script><script src="app.js?v=6.3.0"></script><script src="weekly-production.js?v=6.4.0"></script>
 <script src="weekly-simulator.js?v=6.4.0"></script>
-<script src="hcl-calculator.js?v=3.5"></script>
+<script src="hcl-calculator.js?v=3.6"></script>
 </body></html>

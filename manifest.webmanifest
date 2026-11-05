@@ -1,9 +1,9 @@
 {
-  "name":"Πρόγραμμα Φορτώσεων",
-  "short_name":"Φορτώσεις",
-  "start_url":"./",
-  "display":"standalone",
-  "background_color":"#eef1f4",
-  "theme_color":"#1f3b5b",
-  "icons":[]
+  "name": "Πρόγραμμα πλήρωσης δεξαμενών Hypochlorite / HCl",
+  "short_name": "Δεξαμενές HCl",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#eef1f4",
+  "theme_color": "#1f3b5b",
+  "icons": []
 }

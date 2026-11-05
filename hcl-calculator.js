@@ -1,6 +1,6 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id),ids=['hclRate','hclStart','hclMode','hclDensity','hclLevel1','hclLevelD','hclTargetD'];
-const num=id=>Number($(id).value),fmt=(v,d=2)=>v.toLocaleString('el-GR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const num=id=>Number($(id).value.replace(',', '.')),fmt=(v,d=2)=>v.toLocaleString('el-GR',{minimumFractionDigits:d,maximumFractionDigits:d});
 const date=t=>new Date(t).toLocaleString('el-GR',{day:'2-digit',month:'2-digit',year:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
 function save(){try{localStorage.setItem('kapachim_hcl_v2',JSON.stringify(Object.fromEntries(ids.map(k=>[k,$(k).value]))))}catch(e){}}
 function now(){let d=new Date();$('hclStart').value=new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,16)}
@@ -25,7 +25,7 @@ function init(){let saved={};try{saved=JSON.parse(localStorage.getItem('kapachim
  ids.forEach(id=>$(id).addEventListener('input',()=>{save();calc()}));
  $('hclNow').onclick=()=>{now();save();calc()};$('hclReset').onclick=$('hclNow').onclick;
  document.querySelectorAll('[data-hcl-mode]').forEach(b=>b.onclick=()=>{$('hclMode').value=b.dataset.hclMode;save();calc()});
- document.querySelectorAll('[data-hcl-adjust]').forEach(b=>b.onclick=()=>{let el=$(b.dataset.hclAdjust);el.value=Math.min(Number(el.max),Math.max(0,Number(el.value||0)+Number(b.dataset.delta))).toFixed(2);save();calc()});
+ document.querySelectorAll('[data-hcl-adjust]').forEach(b=>b.onclick=()=>{let el=$(b.dataset.hclAdjust);el.value=Math.min(Number(el.max),Math.max(0,Number((el.value||'0').replace(',', '.'))+Number(b.dataset.delta))).toFixed(2);save();calc()});
  $('hclSave').onclick=()=>{save();let b=$('hclSave');b.textContent='✓ Αποθηκεύτηκε';setTimeout(()=>b.textContent='💾 Αποθήκευση',1300)};
  $('hclClear').onclick=()=>{if(!confirm('Να καθαριστούν τα δεδομένα HCl;'))return;localStorage.removeItem('kapachim_hcl_v1');localStorage.removeItem('kapachim_hcl_v2');$('hclRate').value=0;$('hclLevel1').value=0;$('hclLevelD').value=0;$('hclTargetD').value=80;$('hclDensity').value=1.15;$('hclMode').value='both';now();save();calc()};calc()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
