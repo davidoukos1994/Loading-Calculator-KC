@@ -549,3 +549,5 @@ body.visual-zoom-out .sheet-wrap{width:100%!important;max-width:100%!important;o
 .hcl-fields input:not([type=checkbox]),.hcl-fields select{background:#fff8bb}
 #hclClear{background:#a83131;color:#fff;border:0;min-height:46px}
 @media(max-width:600px){.hcl-mode-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.hcl-actions button{flex:1}}
+
+.hcl-quick{max-width:750px}.hcl-level-label{display:block;font-weight:750;margin:8px 0}.hcl-meter-main{max-width:460px;margin:8px 0 15px}.hcl-meter-main input{font-size:26px;font-weight:800;min-height:54px}.hcl-meter-main button{min-width:60px;font-size:26px}.hcl-quick-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}.hcl-tile{border:1px solid #bdd4e9;border-radius:12px;background:#eff7ff;padding:12px;display:flex;flex-direction:column;gap:7px;min-width:0}.hcl-tile span{font-size:13px;color:#344f6a;font-weight:650}.hcl-tile strong{font-size:19px;color:#103657;overflow-wrap:anywhere}.hcl-mode-buttons button{flex:1;min-width:130px}@media(max-width:480px){.hcl-tile{padding:10px}.hcl-tile strong{font-size:16px}}

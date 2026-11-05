@@ -46,24 +46,30 @@
     <div class="hcl-wrap">
       <h2>Υδροχλωρικό οξύ (HCl) — Πρόβλεψη πλήρωσης</h2>
       <p class="hint">Tank 1 και Tank 2: 3,50 m × 10,15 tn/m = 35,525 tn η καθεμία. D-902: 10 m³ × 1,15 tn/m³ = 11,50 tn.</p>
-      <div class="hcl-card">
-        <h3>Στοιχεία παραγωγής</h3>
+      <div class="hcl-card hcl-quick">
         <div class="hcl-fields">
           <label>Παραγωγή (kg/h)<input id="hclRate" type="number" min="0" step="any" inputmode="decimal" placeholder="π.χ. 2000"></label>
-          <label>Έναρξη υπολογισμού<input id="hclStart" type="datetime-local"></label>
-          <label>Πού γεμίζεις τώρα;<select id="hclMode"><option value="both">Tank 1 + Tank 2 παράλληλα</option><option value="t1">Μόνο Tank 1</option><option value="t2">Μόνο Tank 2</option><option value="d">Μόνο D-902</option></select></label>
-          <label id="hclSplitLabel">Ποσοστό παροχής προς Tank 1 (%)<input id="hclSplit" type="number" min="0" max="100" step="any" value="50"></label>
-          <label>Πυκνότητα D-902 (tn/m³)<input id="hclDensity" type="number" min="0.01" step="any" value="1.15"></label>
+          <label>Έναρξη<input id="hclStart" type="datetime-local"></label>
         </div>
         <div class="hcl-actions"><button type="button" id="hclNow">🕒 Τώρα</button><button type="button" id="hclSave">💾 Αποθήκευση</button><button type="button" id="hclReset">↺ Επαναφορά ώρας</button></div>
-        <div class="hcl-mode-buttons" aria-label="Επιλογή δεξαμενής"><button type="button" data-hcl-mode="t1">Tank 1</button><button type="button" data-hcl-mode="t2">Tank 2</button><button type="button" data-hcl-mode="both">Tank 1 + 2</button><button type="button" data-hcl-mode="d">D-902</button></div>
+        <div class="hcl-mode-buttons" aria-label="Πού πηγαίνει η παραγωγή"><button type="button" data-hcl-mode="both">Tank 1 + 2</button><button type="button" data-hcl-mode="d">D-902</button></div>
+        <select id="hclMode" hidden><option value="both">Tank 1 + 2</option><option value="d">D-902</option></select>
       </div>
-      <div class="hcl-card"><h3>Τι έχει τώρα κάθε δεξαμενή (μέτρα)</h3><div class="hcl-fields">
-        <label>Tank 1 — τώρα (m, 0–3,50)<span class="hcl-meter"><button type="button" data-hcl-adjust="hclLevel1" data-delta="-0.1">−</button><input id="hclLevel1" type="number" min="0" max="3.5" step="0.01" value="0"><button type="button" data-hcl-adjust="hclLevel1" data-delta="0.1">+</button></span></label>
-        <label>Tank 2 — τώρα (m, 0–3,50)<span class="hcl-meter"><button type="button" data-hcl-adjust="hclLevel2" data-delta="-0.1">−</button><input id="hclLevel2" type="number" min="0" max="3.5" step="0.01" value="0"><button type="button" data-hcl-adjust="hclLevel2" data-delta="0.1">+</button></span></label>
-        <label>D-902 — περιεχόμενο (m³, 0–10)<input id="hclLevelD" type="number" min="0" max="10" step="any" value="0"></label>
-      </div></div>
-      <div class="hcl-card"><h3>Πόσο απομένει και πότε γεμίζει</h3><div id="hclError" role="status"></div><div class="hcl-results" id="hclResults"></div><p class="hint">Οι υπολογισμοί προϋποθέτουν σταθερή παραγωγή, σταθερό επιμερισμό και καμία φόρτωση ή μεταφορά κατά τη διάρκεια της πλήρωσης. Αν μία παράλληλη δεξαμενή γεμίσει πρώτη, η παροχή δεν ανακατανέμεται αυτόματα. Οι χρόνοι είναι ενδεικτικοί.</p></div>
+      <div class="hcl-card hcl-quick">
+        <h3>Tank 1 + Tank 2 — κοινή στάθμη</h3>
+        <label class="hcl-level-label">Μέτρα τώρα (ίδια ένδειξη και στις δύο)</label>
+        <div class="hcl-meter hcl-meter-main"><button type="button" data-hcl-adjust="hclLevel1" data-delta="-0.1">−</button><input id="hclLevel1" type="number" min="0" max="3.5" step="0.01" inputmode="decimal" value="0"><button type="button" data-hcl-adjust="hclLevel1" data-delta="0.1">+</button></div>
+        <div id="hclTankQuick" class="hcl-quick-results" aria-live="polite"></div>
+      </div>
+      <div class="hcl-card hcl-quick">
+        <h3>D-902</h3><div class="hcl-fields">
+          <label>Περιεχόμενο τώρα (m³)<input id="hclLevelD" type="number" min="0" max="10" step="any" value="0"></label>
+          <label>Πυκνότητα (tn/m³)<input id="hclDensity" type="number" min="0.01" step="any" value="1.15"></label>
+        </div>
+        <div id="hclDQuick" class="hcl-quick-results" aria-live="polite"></div>
+      </div>
+      <div id="hclError" role="status"></div>
+      <p class="hint">Εκτιμήσεις με σταθερή παραγωγή και χωρίς ενδιάμεσες φορτώσεις ή μεταφορές.</p>
       <button type="button" id="hclClear">Καθαρισμός HCl</button>
       <p class="hint">Οι τιμές αποθηκεύονται τοπικά στη συσκευή σου και δεν επηρεάζουν τις υπόλοιπες καρτέλες.</p>
     </div>
@@ -205,5 +211,5 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script><script src="app.js?v=6.3.0"></script><script src="weekly-production.js?v=6.4.0"></script>
 <script src="weekly-simulator.js?v=6.4.0"></script>
-<script src="hcl-calculator.js?v=3.3"></script>
+<script src="hcl-calculator.js?v=3.4"></script>
 </body></html>
