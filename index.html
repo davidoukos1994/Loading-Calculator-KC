@@ -63,7 +63,8 @@
       </div>
       <div class="hcl-card hcl-quick">
         <h3>D-902</h3><div class="hcl-fields">
-          <label>Περιεχόμενο τώρα (m³)<input id="hclLevelD" type="number" min="0" max="10" step="any" value="0"></label>
+          <label>Τώρα (%)<span class="hcl-meter"><button type="button" data-hcl-adjust="hclLevelD" data-delta="-5">−</button><input id="hclLevelD" type="number" min="0" max="100" step="1" inputmode="decimal" value="0"><button type="button" data-hcl-adjust="hclLevelD" data-delta="5">+</button></span></label>
+          <label>Στόχος (%)<span class="hcl-meter"><button type="button" data-hcl-adjust="hclTargetD" data-delta="-5">−</button><input id="hclTargetD" type="number" min="0" max="100" step="1" inputmode="decimal" value="80"><button type="button" data-hcl-adjust="hclTargetD" data-delta="5">+</button></span></label>
           <label>Πυκνότητα (tn/m³)<input id="hclDensity" type="number" min="0.01" step="any" value="1.15"></label>
         </div>
         <div id="hclDQuick" class="hcl-quick-results" aria-live="polite"></div>
@@ -211,5 +212,5 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script><script src="app.js?v=6.3.0"></script><script src="weekly-production.js?v=6.4.0"></script>
 <script src="weekly-simulator.js?v=6.4.0"></script>
-<script src="hcl-calculator.js?v=3.4"></script>
+<script src="hcl-calculator.js?v=3.5"></script>
 </body></html>
