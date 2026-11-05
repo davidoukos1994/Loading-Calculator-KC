@@ -9,16 +9,17 @@
   <meta http-equiv="Expires" content="0" />
   <title>Πρόγραμμα Φορτώσεων</title>
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css?v=6.2" />
+  <link rel="stylesheet" href="styles.css?v=6.4.0" />
 </head>
 <body>
 <header class="topbar">
-  <div><h1>Πρόγραμμα Φορτώσεων <small class="version-badge">Kapachim_Calendar v2.4</small></h1><p>Κοινόχρηστη εφαρμογή — οι φωτογραφίες δεν αποθηκεύονται.</p></div>
+  <div><h1>Πρόγραμμα Φορτώσεων <small class="version-badge">Kapachim_Calendar v3.1</small></h1><p>Κοινόχρηστη εφαρμογή — οι φωτογραφίες δεν αποθηκεύονται.</p></div>
   <div class="status" id="saveStatus">Αποθηκεύτηκε</div>
 </header>
 <nav class="tabs" aria-label="Κύρια πλοήγηση">
   <button class="tab active" data-view="salesOrder">Πρόγραμμα δεξαμενών υποχλωριώδους νατρίου</button>
   <button class="tab" data-view="weekly">Εβδομαδιαίο</button>
+  <button class="tab" data-view="hcl">Υδροχλωρικό οξύ (HCl)</button>
   <button class="tab" data-view="workProgram">Πρόγραμμα εργασιών</button>
   <button class="tab" data-view="lists">Λίστες / Autocomplete</button>
   <button class="tab" data-view="backup">Αντίγραφο ασφαλείας</button>
@@ -40,10 +41,53 @@
     </div>
   </section>
 
+
+  <section id="hcl" class="view">
+    <div class="hcl-wrap">
+      <h2>Υδροχλωρικό οξύ (HCl) — Πρόβλεψη πλήρωσης</h2>
+      <p class="hint">Tank 1 και Tank 2: 3,50 m × 10,15 tn/m = 35,525 tn η καθεμία. D-902: 10 m³ × 1,15 tn/m³ = 11,50 tn.</p>
+      <div class="hcl-card">
+        <h3>Στοιχεία παραγωγής</h3>
+        <div class="hcl-fields">
+          <label>Παραγωγή (kg/h)<input id="hclRate" type="number" min="0" step="any" inputmode="decimal" placeholder="π.χ. 2000"></label>
+          <label>Έναρξη υπολογισμού<input id="hclStart" type="datetime-local"></label>
+          <label>Πού γεμίζεις τώρα;<select id="hclMode"><option value="both">Tank 1 + Tank 2 παράλληλα</option><option value="t1">Μόνο Tank 1</option><option value="t2">Μόνο Tank 2</option><option value="d">Μόνο D-902</option></select></label>
+          <label id="hclSplitLabel">Ποσοστό παροχής προς Tank 1 (%)<input id="hclSplit" type="number" min="0" max="100" step="any" value="50"></label>
+          <label>Πυκνότητα D-902 (tn/m³)<input id="hclDensity" type="number" min="0.01" step="any" value="1.15"></label>
+        </div>
+        <button type="button" id="hclNow">Τώρα</button>
+      </div>
+      <div class="hcl-card"><h3>Τρέχουσα στάθμη / ποσότητα</h3><div class="hcl-fields">
+        <label>Tank 1 — μέτρα (0–3,50)<input id="hclLevel1" type="number" min="0" max="3.5" step="any" value="0"></label>
+        <label>Tank 2 — μέτρα (0–3,50)<input id="hclLevel2" type="number" min="0" max="3.5" step="any" value="0"></label>
+        <label>D-902 — περιεχόμενο (m³, 0–10)<input id="hclLevelD" type="number" min="0" max="10" step="any" value="0"></label>
+      </div></div>
+      <div class="hcl-card"><h3>Πρόβλεψη πλήρωσης</h3><div id="hclError" role="status"></div><div class="hcl-results" id="hclResults"></div><p class="hint">Οι υπολογισμοί προϋποθέτουν σταθερή παραγωγή, σταθερό επιμερισμό και καμία φόρτωση ή μεταφορά κατά τη διάρκεια της πλήρωσης. Αν μία παράλληλη δεξαμενή γεμίσει πρώτη, η παροχή δεν ανακατανέμεται αυτόματα. Οι χρόνοι είναι ενδεικτικοί.</p></div>
+      <button type="button" id="hclClear">Καθαρισμός HCl</button>
+      <p class="hint">Οι τιμές αποθηκεύονται τοπικά στη συσκευή σου και δεν επηρεάζουν τις υπόλοιπες καρτέλες.</p>
+    </div>
+  </section>
+
   <section id="weekly" class="view">
     <div class="weekly-production-planner" id="weeklyProductionPlanner">
       <h2>Εβδομαδιαίο — πίνακας παραγωγής & βυτίων</h2>
       <p class="hint">Στον ίδιο πίνακα, όπως στο Excel: γράφεις <b>πραγματικά μέτρα</b>, <b>kg/h</b> και <b>βυτία</b>. Όλα τα αποτελέσματα ενημερώνονται αμέσως, χωρίς να χρειάζεται η καρτέλα δεξαμενών.</p>
+      <div class="kc-simple" id="kcSimple">
+        <h3>Γρήγορη πρόβλεψη γεμίσματος εβδομάδας</h3>
+        <p>Συμπλήρωσε τα πραγματικά μέτρα στον πίνακα δεξαμενών παρακάτω. Εδώ επιλέγεις πού γεμίζεις τώρα και τη σειρά αλλαγής.</p>
+        <div class="kc-fields">
+          <label>Παραγωγή (kg/h)<input id="kcRate" type="text" inputmode="decimal" placeholder="π.χ. 6824"></label>
+          <label>Από (ημερομηνία / ώρα)<input id="kcStart" type="datetime-local"></label>
+          <label>Μέχρι (ημερομηνία / ώρα)<input id="kcEnd" type="datetime-local"></label>
+          <label>Βυτία συνολικά (24,5 tn/βυτίο)<input id="kcTrucks" type="number" min="0" step="1" value="0"></label>
+          <label>Γεμίζω τώρα τη δεξαμενή<select id="kcCurrent"></select></label>
+          <label>Σειρά αλλαγής δεξαμενών<select id="kcOrder"><option value="forward">Z1 → Z2 → Z3 → D1 → D2</option><option value="custom">Δική μου σειρά (παρακάτω)</option></select></label>
+          <label id="kcCustomWrap" hidden>Σειρά, χωρισμένη με κόμμα<input id="kcCustom" type="text" value="Z1,Z2,Z3,D1,D2" placeholder="Z2,Z3,D1,Z1,D2"></label>
+        </div>
+        <div class="kc-actions"><button type="button" id="kcNow">Τώρα (έναρξη)</button><button type="button" id="kcCalc">Υπολογισμός</button><button type="button" id="kcClear">Καθαρισμός πρόβλεψης</button></div>
+        <div id="kcResults" aria-live="polite"></div>
+        <p class="kc-note">Οι αλλαγές υπολογίζονται διαδοχικά, με όλη την παραγωγή σε μία δεξαμενή κάθε φορά. Τα βυτία αφαιρούνται μόνο από το τελικό συνολικό ισοζύγιο, επειδή δεν έχουν δηλωθεί ώρες και δεξαμενές φόρτωσης. Επομένως οι ώρες αλλαγής δεν λαμβάνουν υπόψη φορτώσεις. Δεν αποτελεί οδηγία λειτουργίας της μονάδας.</p>
+      </div>
       <div class="weekly-actions"><button type="button" id="weeklyClearAll">Καθαρισμός εβδομαδιαίου</button></div><div class="excel-dashboard">
         <div class="excel-sheet-box excel-tanks"><h3>ΔΕΞΑΜΕΝΕΣ</h3><div class="excel-scroll"><table class="excel-grid"><thead><tr><th>Δεξαμενή</th><th>Μέγιστο ύψος (m)</th><th>tn / μέτρο</th><th>Πραγματικά μέτρα (m)</th><th>Στόχος (m)</th><th>Ποσότητα (tn)</th><th>Μέτρα έως στόχο</th><th>Τόνοι έως στόχο</th><th>Πλήρωση στόχου*</th><th>Πλήρωση MAX*</th></tr></thead><tbody id="productionTankGrid"></tbody><tfoot><tr><th colspan="5">ΣΥΝΟΛΑ</th><th id="weeklyTankTotal">0,00</th><th id="weeklyFreeMeters">0,00</th><th id="weeklyFreeTotal">0,00</th><th colspan="2">—</th></tr></tfoot></table></div></div>
         <div class="excel-sheet-box excel-production"><h3>ΠΑΡΑΓΩΓΗ</h3><div class="excel-rows"><label>Τρέχον kg/h <input id="weeklyKgH" type="text" inputmode="decimal" placeholder="π.χ. 3500"></label><label>Ημερομηνία / ώρα έναρξης <span class="now-date-row"><input id="weeklyProductionStart" type="datetime-local"><button type="button" id="weeklyNowBtn">Τώρα</button></span></label><label>Υπολογισμός έως (ημερομηνία / ώρα) <span class="now-date-row"><input id="weeklyProductionEnd" type="datetime-local"><button type="button" id="weeklyEndNowBtn">Τώρα</button></span></label><div id="weeklyPeriodError" role="status" style="color:#a12626;font-weight:600"></div><div>Διάρκεια υπολογισμού <strong id="weeklyPeriodHours">0 ώρες</strong></div><div>Παραγωγή επιλεγμένου διαστήματος <strong id="weeklyPeriodProduction">0,00 tn</strong></div><div>Παραγωγή μέχρι 08:00 επόμενης ημέρας <strong id="weeklyUntil8Kg">0 kg</strong></div><div>Παραγωγή μέχρι 08:00 (tn) <strong id="weeklyTo8">0 tn</strong></div><div>Παραγωγή ανά 24ωρο (kg) <strong id="weekly24hKg">0 kg</strong></div><div>Παραγωγή ανά 24ωρο (tn) <strong id="weekly24hTn">0 tn</strong></div></div></div>
@@ -52,7 +96,7 @@
         <div class="excel-sheet-box excel-24h"><h3>ΥΠΟΛΟΓΙΣΜΟΣ 24ΩΡΟΥ (08:00–08:00)</h3><div class="excel-rows"><div>Τρέχον kg/h <strong id="weeklyCurrentKgH">0 kg/h</strong></div><div>Παραγωγή 24ώρου (kg) <strong id="weekly24hKgRepeat">0 kg</strong></div><div>Παραγωγή 24ώρου (tn) <strong id="weeklyProduction24h">0,00 tn</strong></div></div></div>
         <div class="excel-sheet-box excel-summary"><h3>ΣΥΝΟΛΙΚΑ (ΕΠΙΛΕΓΜΕΝΟ ΔΙΑΣΤΗΜΑ)</h3><div class="excel-rows"><div>Τρέχουσα ποσότητα στις δεξαμενές <strong id="weeklyCurrentStock">0 tn</strong></div><div>Παραγωγή επιλεγμένου διαστήματος <strong id="weeklyProduction7d">0 tn</strong></div><div>Βυτία στο επιλεγμένο διάστημα (tn) <strong id="weeklyExcelDemand">0 tn</strong></div><div class="excel-final">Εκτιμώμενη ποσότητα στο τέλος του διαστήματος <strong id="weeklyFinalStock">0 tn</strong></div></div></div>
       </div>
-      <div id="weeklyProductionAdvice" class="production-advice"></div><p class="hint">*Οι ώρες πλήρωσης είναι θεωρητικές: υποθέτουν ότι όλη η δηλωμένη παραγωγή κατευθύνεται αποκλειστικά στη συγκεκριμένη δεξαμενή, χωρίς φορτώσεις ή άλλες εκροές. Δεν αποτελούν ταυτόχρονο πρόγραμμα πλήρωσης. D3: ενεργοποιείται μόνο έκτακτα. Οι υπολογισμοί είναι ενδεικτικοί, με σταθερή παραγωγή και 24,5 tn/βυτίο.</p>
+      <div id="weeklyProductionAdvice" class="production-advice"></div><p class="hint">*Οι ώρες πλήρωσης είναι θεωρητικές: υποθέτουν ότι όλη η δηλωμένη παραγωγή κατευθύνεται αποκλειστικά στη συγκεκριμένη δεξαμενή, χωρίς φορτώσεις ή άλλες εκροές. Δεν αποτελούν ταυτόχρονο πρόγραμμα πλήρωσης. Οι υπολογισμοί είναι ενδεικτικοί, με σταθερή παραγωγή και 24,5 tn/βυτίο.</p>
     </div>
     <div hidden aria-hidden="true"><input id="weekStart" type="date"><button id="weeklyCameraBtn"></button><input id="weeklyCamera" type="file"><button id="weeklyGalleryBtn"></button><input id="weeklyGallery" type="file"><button id="toggleWeekFit"></button><button id="clearWeekly"></button><table id="weeklyTable"><thead><tr><th id="weekRange"></th></tr><tr id="weeklyDays"></tr></thead><tbody id="weeklyBody"></tbody></table><span id="weekTotal"></span></div>
   </section>
@@ -158,5 +202,7 @@
   } catch (_) {}
 })();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script><script src="app.js?v=6.3.0"></script><script src="weekly-production.js?v=6.3.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script><script src="app.js?v=6.3.0"></script><script src="weekly-production.js?v=6.4.0"></script>
+<script src="weekly-simulator.js?v=6.4.0"></script>
+<script src="hcl-calculator.js?v=3.1"></script>
 </body></html>
