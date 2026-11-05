@@ -537,3 +537,15 @@ body.visual-zoom-out .sheet-wrap{width:100%!important;max-width:100%!important;o
 
 /* HCl calculator — independent, mobile-first */
 .hcl-wrap{max-width:1050px;margin:0 auto}.hcl-card{background:#fff;border:1px solid #d9e1eb;border-radius:12px;padding:16px;margin:14px 0;box-shadow:0 2px 8px #102f4c0a}.hcl-card h3{margin:0 0 12px}.hcl-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.hcl-fields label{display:flex;flex-direction:column;gap:5px;font-weight:650}.hcl-fields input,.hcl-fields select{box-sizing:border-box;width:100%;padding:11px;border:1px solid #aab9c9;border-radius:8px;background:white;color:#132a40;font-size:16px}.hcl-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.hcl-result{border:1px solid #d3e0eb;background:#f4f9ff;border-radius:10px;padding:12px;line-height:1.9}.hcl-result strong{font-size:1.14rem}.hcl-summary{grid-column:1/-1;padding:12px;border-radius:9px;background:#e3f4e9;font-weight:750}.hcl-wrap button{padding:10px 15px;border-radius:8px;cursor:pointer}#hclError{color:#aa2323;font-weight:700;margin-bottom:8px}@media(max-width:600px){.hcl-card{padding:12px}.hcl-fields{grid-template-columns:1fr}}
+
+/* HCl controls: same touch-friendly dark blue controls as chlorine planner */
+.hcl-actions,.hcl-mode-buttons{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.hcl-actions button,.hcl-mode-buttons button{background:#203d5d;color:white;border:1px solid #203d5d;min-height:46px;font-size:15px;font-weight:750}
+.hcl-mode-buttons button{background:#eef4fa;color:#203d5d}
+.hcl-mode-buttons button.selected{background:#203d5d;color:#fff;box-shadow:inset 0 0 0 2px #9dc2ec}
+.hcl-meter{display:flex;align-items:stretch;gap:5px}
+.hcl-meter input{min-width:0;flex:1;text-align:center;background:#fff8bb}
+.hcl-meter button{min-width:45px;background:#203d5d;color:#fff;border:0;font-size:22px;line-height:1}
+.hcl-fields input:not([type=checkbox]),.hcl-fields select{background:#fff8bb}
+#hclClear{background:#a83131;color:#fff;border:0;min-height:46px}
+@media(max-width:600px){.hcl-mode-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.hcl-actions button{flex:1}}

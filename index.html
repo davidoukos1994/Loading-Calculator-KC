@@ -9,11 +9,11 @@
   <meta http-equiv="Expires" content="0" />
   <title>Πρόγραμμα Φορτώσεων</title>
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css?v=6.4.0" />
+  <link rel="stylesheet" href="styles.css?v=6.4.3" />
 </head>
 <body>
 <header class="topbar">
-  <div><h1>Πρόγραμμα Φορτώσεων <small class="version-badge">Kapachim_Calendar v3.1</small></h1><p>Κοινόχρηστη εφαρμογή — οι φωτογραφίες δεν αποθηκεύονται.</p></div>
+  <div><h1>Πρόγραμμα Φορτώσεων <small class="version-badge">Kapachim_Calendar v3.3</small></h1><p>Κοινόχρηστη εφαρμογή — οι φωτογραφίες δεν αποθηκεύονται.</p></div>
   <div class="status" id="saveStatus">Αποθηκεύτηκε</div>
 </header>
 <nav class="tabs" aria-label="Κύρια πλοήγηση">
@@ -55,14 +55,15 @@
           <label id="hclSplitLabel">Ποσοστό παροχής προς Tank 1 (%)<input id="hclSplit" type="number" min="0" max="100" step="any" value="50"></label>
           <label>Πυκνότητα D-902 (tn/m³)<input id="hclDensity" type="number" min="0.01" step="any" value="1.15"></label>
         </div>
-        <button type="button" id="hclNow">Τώρα</button>
+        <div class="hcl-actions"><button type="button" id="hclNow">🕒 Τώρα</button><button type="button" id="hclSave">💾 Αποθήκευση</button><button type="button" id="hclReset">↺ Επαναφορά ώρας</button></div>
+        <div class="hcl-mode-buttons" aria-label="Επιλογή δεξαμενής"><button type="button" data-hcl-mode="t1">Tank 1</button><button type="button" data-hcl-mode="t2">Tank 2</button><button type="button" data-hcl-mode="both">Tank 1 + 2</button><button type="button" data-hcl-mode="d">D-902</button></div>
       </div>
-      <div class="hcl-card"><h3>Τρέχουσα στάθμη / ποσότητα</h3><div class="hcl-fields">
-        <label>Tank 1 — μέτρα (0–3,50)<input id="hclLevel1" type="number" min="0" max="3.5" step="any" value="0"></label>
-        <label>Tank 2 — μέτρα (0–3,50)<input id="hclLevel2" type="number" min="0" max="3.5" step="any" value="0"></label>
+      <div class="hcl-card"><h3>Τι έχει τώρα κάθε δεξαμενή (μέτρα)</h3><div class="hcl-fields">
+        <label>Tank 1 — τώρα (m, 0–3,50)<span class="hcl-meter"><button type="button" data-hcl-adjust="hclLevel1" data-delta="-0.1">−</button><input id="hclLevel1" type="number" min="0" max="3.5" step="0.01" value="0"><button type="button" data-hcl-adjust="hclLevel1" data-delta="0.1">+</button></span></label>
+        <label>Tank 2 — τώρα (m, 0–3,50)<span class="hcl-meter"><button type="button" data-hcl-adjust="hclLevel2" data-delta="-0.1">−</button><input id="hclLevel2" type="number" min="0" max="3.5" step="0.01" value="0"><button type="button" data-hcl-adjust="hclLevel2" data-delta="0.1">+</button></span></label>
         <label>D-902 — περιεχόμενο (m³, 0–10)<input id="hclLevelD" type="number" min="0" max="10" step="any" value="0"></label>
       </div></div>
-      <div class="hcl-card"><h3>Πρόβλεψη πλήρωσης</h3><div id="hclError" role="status"></div><div class="hcl-results" id="hclResults"></div><p class="hint">Οι υπολογισμοί προϋποθέτουν σταθερή παραγωγή, σταθερό επιμερισμό και καμία φόρτωση ή μεταφορά κατά τη διάρκεια της πλήρωσης. Αν μία παράλληλη δεξαμενή γεμίσει πρώτη, η παροχή δεν ανακατανέμεται αυτόματα. Οι χρόνοι είναι ενδεικτικοί.</p></div>
+      <div class="hcl-card"><h3>Πόσο απομένει και πότε γεμίζει</h3><div id="hclError" role="status"></div><div class="hcl-results" id="hclResults"></div><p class="hint">Οι υπολογισμοί προϋποθέτουν σταθερή παραγωγή, σταθερό επιμερισμό και καμία φόρτωση ή μεταφορά κατά τη διάρκεια της πλήρωσης. Αν μία παράλληλη δεξαμενή γεμίσει πρώτη, η παροχή δεν ανακατανέμεται αυτόματα. Οι χρόνοι είναι ενδεικτικοί.</p></div>
       <button type="button" id="hclClear">Καθαρισμός HCl</button>
       <p class="hint">Οι τιμές αποθηκεύονται τοπικά στη συσκευή σου και δεν επηρεάζουν τις υπόλοιπες καρτέλες.</p>
     </div>
@@ -204,5 +205,5 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script><script src="app.js?v=6.3.0"></script><script src="weekly-production.js?v=6.4.0"></script>
 <script src="weekly-simulator.js?v=6.4.0"></script>
-<script src="hcl-calculator.js?v=3.1"></script>
+<script src="hcl-calculator.js?v=3.3"></script>
 </body></html>
